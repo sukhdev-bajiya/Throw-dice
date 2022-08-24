@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Throw Dice</title>
+    <link rel="icon" type="image/x-icon" href="https://1001freedownloads.s3.amazonaws.com/vector/thumb/65889/De-a-jouer-playing-dice.png">
+</head>
+<style>
+    body {
+        text-transform: uppercase;
+    }
+
+    .diceVal {
+        display: flex;
+        padding: 10% 15%;
+        justify-content: space-around;
+        font-size: 1.5rem;
+    }
+
+    .diceVal span {
+        margin: 0 10px;
+        background-color: gray;
+        padding: 15px 23px;
+        border-radius: 3px;
+        color: white;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+        border: none;
+        align-items: center;
+    }
+
+    #roll {
+        display: block;
+        margin: auto;
+        padding: 15px 50px;
+        font-weight: 800;
+        background-color: orange;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
+    }
+
+    #roll:hover {
+        color: orange;
+        background-color: white;
+    }
+
+    .diceScorer {
+        height: 100px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2rem;
+    }
+
+    #winnerImg1, #winnerImg2, #winnerImg3, #winnerImg4  {
+        display: none;
+        margin: auto 15px;
+        width: 50px;
+    }
+
+    #clickMeImg {
+        display: block;
+        margin: 15px auto;
+    }
+    .dicImg{
+        width: 60px;
+        display: block;
+    }
+    #member-1, #member-2, #member-3{
+        display: none;
+    }
+    .diceValDiv{
+        display: flex;
+        align-items: center;
+    }
+</style>
+
+<body>
+    <section class="diceScorer">
+        <img id="winnerImg1"
+            src="https://media0.giphy.com/media/7zGDfw3sSQyZycvSM3/giphy.gif?cid=6c09b952ayp2wdv9lt27gr47ttzn2lqm95660niomdsdr5pf&rid=giphy.gif&ct=s"
+            alt="">
+            <img id="winnerImg3"
+            src="https://cliply.co/wp-content/uploads/2021/03/392103840_SAD_EMOJI_WITH_TEAR_400px.gif"
+            alt="">
+        <div id="winner">Winner</div>
+        <img id="winnerImg2"
+            src="https://media0.giphy.com/media/7zGDfw3sSQyZycvSM3/giphy.gif?cid=6c09b952ayp2wdv9lt27gr47ttzn2lqm95660niomdsdr5pf&rid=giphy.gif&ct=s"
+            alt="">
+        <img id="winnerImg4"
+            src="https://cliply.co/wp-content/uploads/2021/03/392103840_SAD_EMOJI_WITH_TEAR_400px.gif"
+            alt="">
+    </section>
+    <section class="diceVal">
+        <div class="diceValDiv">Akash : 
+            <span id="member-1">.</span>
+            <img class="dicImg" src="https://www.pinclipart.com/picdir/big/209-2095778_dice-clipart-yahtzee-yamb-png-download.png" alt="">
+        </div>
+        <div class="diceValDiv">Ayush : 
+            <span id="member-2">.</span>
+            <img class="dicImg" src="https://www.pinclipart.com/picdir/big/209-2095778_dice-clipart-yahtzee-yamb-png-download.png" alt="">
+        </div>
+        <div class="diceValDiv">Sukhdev : 
+            <span id="member-3">.</span>
+            <img class="dicImg" src="https://www.pinclipart.com/picdir/big/209-2095778_dice-clipart-yahtzee-yamb-png-download.png" alt="">
+        </div>
+    </section>
+    <img id="clickMeImg" src="https://www.readermaster.com/wp-content/uploads/2018/11/click-here.gif" alt="click here ->">
+    <button id="roll">ROLL THE DICE</button>
+
+
+</body>
+<script>
+    document.getElementById("roll").addEventListener("click", rollDice)
+    function rollDice() {
+        document.getElementById("roll").style.display = "none"
+        document.querySelector("#clickMeImg").style.display = "none"
+        for (var i = 0; i < 3; i++) {
+            document.querySelectorAll("span")[i].style.color = "black";
+            document.querySelectorAll(".dicImg")[i].style.display="none";
+        }
+        document.getElementById("member-1").style.display="block";
+        document.getElementById("member-2").style.display="block";
+        document.getElementById("member-3").style.display="block";
+
+
+        document.getElementById("member-1").innerText = Math.floor(Math.random() * 6) + 1;
+        document.getElementById("member-2").innerText = Math.floor(Math.random() * 6) + 1;
+        document.getElementById("member-3").innerText = Math.floor(Math.random() * 6) + 1;
+
+        var member1 = document.getElementById("member-1")
+        var member2 = document.getElementById("member-2")
+        var member3 = document.getElementById("member-3")
+        var winner = document.getElementById("winner")
+
+        // console.log(member1.innerText, member2.innerText, member3.innerText)
+
+        var one = member1.innerText;
+        var two = member2.innerText;
+        var three = member3.innerText;
+
+        if (one == two || two == three || one == three) {
+            if (one == two && two == three) {
+                member1.style.backgroundColor = "blue";
+                member2.style.backgroundColor = "blue";
+                member3.style.backgroundColor = "blue";
+                winner.innerText = "draw"
+                winner.style.color = "red"
+            } else if (one == two) {
+                if (two < three) {
+                    member1.style.backgroundColor = "blue";
+                    member2.style.backgroundColor = "blue";
+                    member3.style.backgroundColor = "green";
+                    winner.innerText = "Sukhdev"
+                    winner.style.color = "green"
+                } else {
+                    member1.style.backgroundColor = "blue";
+                    member2.style.backgroundColor = "blue";
+                    member3.style.backgroundColor = "red";
+                    winner.innerText = "draw"
+                    winner.style.color = "red"
+                }
+
+            } else if (two == three) {
+                if (two < one) {
+                    member2.style.backgroundColor = "blue";
+                    member3.style.backgroundColor = "blue";
+                    member1.style.backgroundColor = "green";
+                    winner.innerText = "Akash"
+                    winner.style.color = "green"
+                } else {
+                    member2.style.backgroundColor = "blue";
+                    member3.style.backgroundColor = "blue";
+                    member1.style.backgroundColor = "red";
+                    winner.innerText = "draw"
+                    winner.style.color = "red"
+                }
+
+            } else if (one == three) {
+                if (two > three) {
+                    member1.style.backgroundColor = "blue";
+                    member3.style.backgroundColor = "blue";
+                    member2.style.backgroundColor = "green";
+                    winner.innerText = "Ayush"
+                    winner.style.color = "green"
+                } else {
+                    member1.style.backgroundColor = "blue";
+                    member3.style.backgroundColor = "blue";
+                    member2.style.backgroundColor = "red";
+                    winner.innerText = "draw"
+                    winner.style.color = "red"
+                }
+
+            }
+        } else {
+
+            if (one > two && one > three) {
+                member1.style.backgroundColor = "green";
+                winner.innerText = "Akash"
+                winner.style.color = "green"
+                if (two > three) {
+                    member2.style.backgroundColor = "yellow";
+                    member3.style.backgroundColor = "red";
+                } else {
+                    member2.style.backgroundColor = "red";
+                    member3.style.backgroundColor = "yellow";
+                }
+            } else if (two > one && two > three) {
+                member2.style.backgroundColor = "green";
+                winner.innerText = "Ayush"
+                winner.style.color = "green"
+                if (three > one) {
+                    member1.style.backgroundColor = "red";
+                    member3.style.backgroundColor = "yellow";
+                } else {
+                    member1.style.backgroundColor = "yellow";
+                    member3.style.backgroundColor = "red";
+                }
+            } else if (three > one && three > two) {
+                member3.style.backgroundColor = "green";
+                winner.innerText = "Sukhdev"
+                winner.style.color = "green"
+                if (one > two) {
+                    member1.style.backgroundColor = "yellow";
+                    member2.style.backgroundColor = "red";
+                } else {
+                    member1.style.backgroundColor = "red";
+                    member2.style.backgroundColor = "yellow";
+                }
+            }
+        }
+        if (winner.innerText !== "DRAW") {
+            document.getElementById("winnerImg1").style.display = "block"
+            document.getElementById("winnerImg2").style.display = "block"
+        }else{
+            document.getElementById("winnerImg3").style.display = "block"
+            document.getElementById("winnerImg4").style.display = "block"
+        }
+        setTimeout(() => {
+            member1.style.backgroundColor = "gray";
+            member2.style.backgroundColor = "gray";
+            member3.style.backgroundColor = "gray";
+            document.getElementById("roll").style.display = "block"
+            document.querySelector("#clickMeImg").style.display = "block"
+            winner.innerText = "Winner"
+            document.getElementById("member-1").innerText = ".";
+            document.getElementById("member-2").innerText = ".";
+            document.getElementById("member-3").innerText = ".";
+            winner.style.color = "black"
+            document.getElementById("winnerImg1").style.display = "none"
+            document.getElementById("winnerImg2").style.display = "none"
+            document.getElementById("winnerImg3").style.display = "none"
+            document.getElementById("winnerImg4").style.display = "none"
+
+            for (var i = 0; i < 3; i++) {
+            document.querySelectorAll("span")[i].style.color = "white";
+            document.querySelectorAll(".dicImg")[i].style.display="block";
+        }
+        document.getElementById("member-1").style.display="none";
+        document.getElementById("member-2").style.display="none";
+        document.getElementById("member-3").style.display="none";
+        }, 5000);
+    }
+</script>
+
+</html>
